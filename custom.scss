@@ -1,0 +1,930 @@
+/*-- scss:defaults --*/
+
+// ===========================================================================
+// Theme copied from the PowerPoint ("Missing_values_biomedAI.pptx").
+// The slide frames, dotted background and section photos are images exported
+// from the deck itself (images/bg/), so this file only has to handle type.
+// ===========================================================================
+
+$mv-ink:    #4D4D95;   // dk1: all text and titles
+$mv-purple: #6666BC;   // accent2
+$mv-mint:   #47C5A3;   // accent1
+$mv-green:  #23735E;   // accent6 at 50% luminance (section 3 title)
+$mv-coral:  #FB5760;   // lt2 / accent4
+$mv-yellow: #FFD26D;   // dk2 / accent5
+$mv-amber:  #D9A21B;   // yellow, dark enough to read as text
+$mv-orange: #FF8163;   // accent3
+$mv-lav:    #C3C2E4;   // section-number circles, frame colour
+$mv-grey:   #A7A7C4;   // citations
+
+// Section colours (talk map, and for highlighting each part of the talk):
+// circle fill, circle outline, and a lighter tint for highlight chips.
+$sec1: #FFBFAF; $sec1-line: #FF8163; $sec1-tint: #FFE3DB;   // light orange
+$sec2: #B5E8DA; $sec2-line: #47C5A3; $sec2-tint: #DDF4ED;   // green
+$sec3: #C3C2E4; $sec3-line: #8F8DD0; $sec3-tint: #E5E4F4;   // blue (lavender)
+$sec4: #FFE4A6; $sec4-line: #F5C14E; $sec4-tint: #FFF2D2;   // yellow
+
+$body-bg: #FFFFFF;
+$body-color: $mv-ink;
+$link-color: $mv-purple;
+$link-color-hover: $mv-coral;
+
+// Avenir Next is what the deck uses (it ships with macOS). Nunito Sans is the
+// closest free match and is loaded from Google Fonts for other machines.
+$font-family-sans-serif: "Avenir Next", "Nunito Sans", "Avenir", "Segoe UI", sans-serif;
+$presentation-font-size-root: 30px;
+$presentation-line-height: 1.3;
+
+$presentation-heading-font: $font-family-sans-serif;
+$presentation-heading-color: $mv-ink;
+$presentation-heading-font-weight: 700;
+$presentation-h2-font-size: 1.85em;   // 40 pt in the deck
+$presentation-h3-font-size: 1.1em;
+
+$code-block-font-size: 0.52em;
+$code-color: $mv-ink;
+$code-block-bg: #F4F4F4;
+$code-block-border-color: transparent;
+
+$presentation-block-margin: 10px;
+
+
+/*-- scss:rules --*/
+
+// --- Layout: text starts top-left, like the deck ---------------------------
+
+.reveal .slides section {
+  box-sizing: border-box;
+  padding: 26px 56px 0 56px !important;
+  text-align: left;
+}
+
+.reveal h2 {
+  margin: 0 0 0.45em 0;
+  letter-spacing: -0.005em;
+  line-height: 1.12;
+  text-transform: none;
+}
+
+.reveal h3 {
+  color: $mv-mint;
+  margin: 0.2em 0 0.25em 0;
+}
+
+.reveal .slides { font-weight: 500; }
+.reveal strong { font-weight: 700; }
+.reveal em { font-style: italic; }
+
+.reveal ul, .reveal ol { margin-left: 1.1em; }
+.reveal li { margin-bottom: 0.28em; }
+.reveal ul li::marker { color: $mv-yellow; }
+.reveal ol li::marker { color: $mv-mint; font-weight: 700; }
+
+// --- Colour helpers (the deck's highlight words) ---------------------------
+
+.mint   { color: $mv-mint; }
+.coral  { color: $mv-coral; }
+.amber  { color: $mv-amber; }
+.purple { color: $mv-purple; }
+.grey   { color: $mv-grey; }
+.cite   { color: $mv-grey; font-size: 0.72em; }
+.small  { font-size: 0.78em; }
+.smaller { font-size: 0.64em; }
+.center { text-align: center; }
+
+// --- Footer label on the mint-framed slides ("a) Multiple imputation") ------
+
+.reveal .foot {
+  position: absolute;
+  left: 18px;
+  top: 670px;             // sits in the mint band of frame-mint.jpg
+  font-size: 20px !important;   // fixed, so slide-level font sizes don't shrink it
+  font-weight: 500;
+  margin: 0;
+  b { font-weight: 700; }
+}
+
+// --- Title slide: sizes and positions measured from the PowerPoint -----------
+
+.reveal section.title-slide-pptx {
+  overflow: visible;
+
+  // The whole tree, placed and stretched exactly as the PowerPoint crops it
+  // (srcRect t=49.1%, r=31.4%), so the leaves run past the slide edges.
+  img.t-tree, img.t-poster {
+    position: absolute;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    pointer-events: none;
+  }
+  img.t-tree   { left: 18px; top: -691px; width: 1836px; height: 1410px; z-index: 0; }
+  img.t-poster { left: 788px; top: 248px; width: 246px; height: 342px; z-index: 1; }
+  .t-lead, .t-echo, .t-sub { z-index: 2; }
+
+  .t-lead, .t-echo, .t-sub { position: absolute; left: 82px; margin: 0; }
+  .t-lead p, .t-echo p, .t-sub p { margin: 0; line-height: inherit; }
+
+  .t-lead {
+    top: 177px;
+    font-size: 106px;
+    font-weight: 700;
+    line-height: 101px;
+    letter-spacing: 0.005em;
+    color: #B95052;
+    text-shadow: 3px 4px 6px rgba(0, 0, 0, 0.28);
+  }
+  .t-echo {
+    top: 380px;
+    font-size: 96px;
+    font-weight: 700;
+    line-height: 101px;
+    color: #EF9FA2;
+    text-shadow: 3px 4px 6px rgba(0, 0, 0, 0.22);
+  }
+  .t-sub {
+    top: 505px;
+    width: 640px;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 47px;
+    color: #4C4E90;
+    strong { font-weight: 700; }
+  }
+}
+
+// --- Section dividers: number in the circle, title in the white strip -------
+
+.reveal section.divider {
+  .num {
+    position: absolute;
+    left: 76px;
+    top: 52px;
+    width: 92px;
+    text-align: center;
+    font-size: 2.6em;
+    font-weight: 700;
+    margin: 0;
+  }
+  .dtitle {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 548px;
+    text-align: center;
+    font-size: 2.15em;
+    line-height: 1.15;
+    font-weight: 500;
+    margin: 0;
+    b { font-weight: 700; }
+    em { color: var(--sec-line, #{$mv-coral}); }
+  }
+  // Section 3: the title sits in the column to the right of the cat
+  .dtitle-right {
+    position: absolute;
+    left: 868px;
+    width: 390px;
+    top: 90px;
+    text-align: center;
+    color: $mv-green;
+    font-size: 1.6em;
+    line-height: 1.2;
+    margin: 0;
+    b { font-weight: 700; }
+  }
+}
+
+// A divider without a photo (2b): big number on the plain frame
+.reveal section.subdivider {
+  .num-big {
+    display: inline-block;
+    width: 120px; height: 120px; line-height: 120px;
+    border-radius: 50%;
+    background: rgba($mv-mint, 0.35);
+    text-align: center;
+    font-size: 2.4em;
+    font-weight: 700;
+    margin: 140px 0 0.3em 0;
+  }
+  .stitle { font-size: 2.2em; font-weight: 700; line-height: 1.15; }
+}
+
+// --- Pills: MCAR / MAR / MNAR, and the "e.g." chips of the deck -------------
+
+.pill {
+  display: inline-block;
+  padding: 0.05em 0.75em;
+  border-radius: 999px;
+  color: #FFFFFF;
+  font-weight: 600;
+}
+.pill-mcar { background: $mv-mint; }
+.pill-mar  { background: $mv-yellow; }
+.pill-mnar { background: $mv-orange; }
+.pill-lav  { background: $mv-purple; }
+
+.mech {
+  text-align: center;
+  .pill { font-size: 1.15em; margin-bottom: 0.35em; }
+  p { font-size: 0.9em; line-height: 1.25; margin: 0.25em 0; }
+  .eg { display: block; margin-top: 0.6em; color: $mv-purple; font-style: italic; font-size: 0.8em; }
+}
+
+// Rounded boxes, as on the "Procedure" and "Discussion point" slides
+.box {
+  box-sizing: border-box;
+  border-radius: 18px;
+  padding: 0.45em 0.8em;
+  margin: 0.35em 0;
+  font-size: 0.9em;
+  p { margin: 0.15em 0; }
+  ul, ol { margin-top: 0.1em; margin-bottom: 0.1em; }
+}
+.box-lav    { background: rgba($mv-lav, 0.45); }
+.box-mint   { background: rgba($mv-mint, 0.18); }
+.box-yellow { background: rgba($mv-yellow, 0.32); }
+.box-coral  { background: rgba($mv-coral, 0.14); }
+
+.big-quote {
+  font-size: 1.05em;
+  font-style: italic;
+  color: $mv-purple;
+}
+
+// --- Tables -----------------------------------------------------------------
+
+.reveal table {
+  font-size: 0.6em;
+  border-collapse: collapse;
+  margin: 0;
+  th {
+    font-weight: 700;
+    border-bottom: 2px solid $mv-lav !important;
+    padding: 0.3em 0.55em !important;
+  }
+  td {
+    border-bottom: 1px dashed $mv-lav;
+    padding: 0.28em 0.55em !important;
+    vertical-align: top;
+  }
+}
+
+.reveal .compare table { font-size: 0.56em; width: 100%; }
+.reveal .compare td:first-child { font-weight: 700; }
+.ok   { color: #1F8A6D; font-weight: 700; }
+.meh  { color: $mv-amber; font-weight: 700; }
+.bad  { color: $mv-coral; font-weight: 700; }
+
+// Grid of "booklets" for the three-form design
+.reveal .design table {
+  font-size: 0.66em;
+  td, th { text-align: center; border: 2px solid #FFFFFF; }
+  td.y { background: rgba($mv-mint, 0.35); }
+  td.n { background: rgba($mv-coral, 0.12); color: $mv-coral; font-style: italic; }
+}
+
+// --- Code -------------------------------------------------------------------
+
+.reveal pre {
+  box-shadow: none;
+  border-radius: 14px;
+  width: 100%;
+}
+.reveal pre code {
+  font-family: Consolas, "SF Mono", Menlo, monospace;
+  border-radius: 14px;
+  padding: 0.7em 0.9em;
+  max-height: 560px;
+}
+.reveal code {
+  font-family: Consolas, "SF Mono", Menlo, monospace;
+}
+.reveal p code, .reveal li code, .reveal td code {
+  background: rgba($mv-lav, 0.4);
+  border-radius: 4px;
+  padding: 0 0.25em;
+  font-size: 0.9em;
+}
+
+// --- Furniture ----------------------------------------------------------------
+
+.reveal .slide-number {
+  background: transparent;
+  color: $mv-grey;
+  font-family: $font-family-sans-serif;
+}
+.reveal .progress { color: $mv-mint; }
+.reveal .controls { color: $mv-purple; }
+.reveal .column > p:first-child { margin-top: 0; }
+
+.reveal .speaker-notes { font-size: 15px; }
+
+// --- Fixed 16:9 canvas, like the PowerPoint ---------------------------------
+// Backgrounds belong to the slide (1280 x 720), not the browser window, so the
+// frame always lines up with the content. Reveal scales the whole canvas to
+// fit the screen and fills the rest with white.
+.reveal-viewport { background: #FFFFFF; }
+.reveal .slides > section.bgslide,
+.reveal .slides > section > section.bgslide {
+  width: 1280px !important;
+  height: 720px !important;
+  top: 0 !important;
+  left: 0 !important;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-color: #FFFFFF;
+}
+
+// --- Navigation and drawing buttons: top-right, clear of the footer labels --
+.reveal .slide-menu-button {
+  left: auto !important;
+  right: 14px !important;
+  top: 12px !important;
+  bottom: auto !important;
+}
+.reveal .slide-chalkboard-buttons {
+  left: auto !important;
+  right: 50px !important;
+  top: 12px !important;
+  bottom: auto !important;
+}
+.reveal .slide-menu-button a,
+.reveal .slide-chalkboard-buttons button {
+  color: $mv-purple !important;
+}
+.reveal .controls { color: $mv-purple; }
+
+// Rubin and Little, in the corners of the mechanisms slide (as in the deck)
+.reveal img.corner-l { position: absolute; left: 16px; bottom: 10px; height: 190px; max-width: none; max-height: none; margin: 0; }
+.reveal img.corner-r { position: absolute; right: 14px; bottom: 12px; height: 150px; max-width: none; max-height: none; margin: 0; }
+
+// Slide number sits just left of the arrows instead of under them
+.reveal .slide-number {
+  right: 118px !important;
+  bottom: 14px !important;
+}
+
+
+// --- Section colours: .sec1 ... .sec4 set the colour for anything inside ----
+.sec1 { --sec: #{$sec1}; --sec-line: #{$sec1-line}; --sec-tint: #{$sec1-tint}; }
+.sec2 { --sec: #{$sec2}; --sec-line: #{$sec2-line}; --sec-tint: #{$sec2-tint}; }
+.sec3 { --sec: #{$sec3}; --sec-line: #{$sec3-line}; --sec-tint: #{$sec3-tint}; }
+.sec4 { --sec: #{$sec4}; --sec-line: #{$sec4-line}; --sec-tint: #{$sec4-tint}; }
+
+// Rounded highlight, e.g. [MI]{.chip .sec2} anywhere in the talk
+.chip {
+  display: inline-block;
+  background: var(--sec-tint, #EEEEF7);
+  border-radius: 999px;
+  padding: 0.04em 0.7em;
+  margin: 0 0.25em 0.25em 0;
+  font-size: 0.8em;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+// Hand-drawn style number circle, e.g. [2]{.num-circle .sec2}
+.map-num, .num-circle {
+  position: relative;
+  display: inline-block;
+  width: 1.75em;
+  height: 1.75em;
+  line-height: 1.75em;
+  text-align: center;
+  font-weight: 700;
+  color: $mv-ink;
+  background: var(--sec);
+  border-radius: 53% 47% 51% 49% / 46% 54% 46% 54%;
+  transform: rotate(-4deg);
+  // two offset outlines give the sketchy PowerPoint look
+  &::before, &::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border: 3px solid var(--sec-line);
+    border-radius: 48% 52% 45% 55% / 55% 45% 53% 47%;
+    pointer-events: none;
+  }
+  &::after {
+    inset: -1px -4px -4px -1px;
+    border-width: 2px;
+    border-radius: 55% 45% 52% 48% / 47% 53% 49% 51%;
+    transform: rotate(9deg);
+    opacity: 0.7;
+  }
+}
+
+// The talk map slide
+.reveal .map {
+  margin-top: 0.3em;
+  .map-sec { margin-bottom: 0.55em; }
+  .map-sec p { margin: 0; }
+  .map-num { margin-right: 0.55em; vertical-align: middle; }
+  .map-head { font-size: 1.05em; font-weight: 700; vertical-align: middle; }
+  .map-sec p + p { margin: 0.3em 0 0 2.55em; }   // chips indented under the heading
+}
+
+
+// --- "Something's missing …" (rebuilt from the PowerPoint slide) ------------
+$fig-red: #C0393B;   // the red of the arrow in the PowerPoint figure
+
+// Dark-red rounded box, usable on any slide: ::: {.dark-red} ... :::
+.reveal .dark-red {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 10px 32px;
+  border-radius: 22px;
+  border: 2px solid $fig-red;
+  background: #FBE4E4;
+  color: $fig-red;
+  font-size: 26px;
+  line-height: 1.25;
+  font-weight: 700;
+  text-align: center;
+  p { margin: 0; }
+}
+
+.reveal section.missing-demo {
+  h2 { margin: 10px 0 0 120px; }   // leaves room for Nancy in the corner
+  .eq, .n6, .n3 { position: absolute; margin: 0; }
+  .eq p, .n6 p, .n3 p, .dark-red p { margin: 0; }
+
+  img.nancy {
+    position: absolute;
+    left: -42px; top: -36px; width: 240px; height: auto;   // png has a transparent margin
+    max-width: none; max-height: none; margin: 0;
+  }
+
+  table.toy {
+    position: absolute;
+    left: 150px; top: 193px;
+    width: 420px;
+    border-collapse: collapse;
+    font-family: Arial, "Helvetica Neue", sans-serif;
+    font-size: 30px;
+    color: #1A1A1A;
+    th, td {
+      border: 2px solid $mv-ink !important;   // grid in the title colour
+      padding: 4px 12px !important;
+      height: 53px;
+      width: 25%;
+      text-align: left;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    th { background: #E1E1F0; font-weight: 700; color: $mv-ink; }
+    td { background: #EFEFF7; }
+    td.na { color: #BDBDBD; font-style: italic; }
+  }
+
+  // Right-hand column, everything centred on x = 845 (the --cx line):
+  // equation, N = 6, then (one fragment) the hand-drawn arrow running
+  // through the red box down to N = 3.
+  --cx: 845px;
+  .eq, .n6, .n3, .dark-red {
+    left: var(--cx);
+    transform: translateX(-50%);
+    text-align: center;
+    white-space: nowrap;
+  }
+  .eq { top: 170px; font-size: 34px; color: $mv-purple; }
+  .n6, .n3 {
+    font-size: 40px; font-weight: 400; color: $mv-purple;
+    em { font-style: italic; color: $mv-purple; }
+  }
+  .n6 { top: 290px; }
+  .n3 { top: 590px; }
+  .n3-num { color: $fig-red; font-weight: 700; font-size: 1.3em; }
+
+  img.down-arrow {
+    position: absolute; left: calc(var(--cx) - 20px); top: 355px;
+    width: 40px; height: 230px; max-width: none; max-height: none; margin: 0;
+  }
+  .dark-red { position: absolute; top: 432px; margin: 0; }
+
+}
+
+// ===========================================================================
+// Section colours on slides: put .sec1 ... .sec4 on a slide and these follow
+// ===========================================================================
+.reveal .box-sec { background: var(--sec-tint); }
+.reveal .hl { color: var(--sec-line); font-weight: 700; }
+.reveal .label {                 // "Step 1", "Experimental data" title labels
+  background: var(--sec);
+  padding: 0 0.25em;
+  font-weight: 500;
+}
+.reveal .h2-light { font-weight: 500; }
+.reveal .ul { text-decoration: underline; text-underline-offset: 0.12em; }
+.reveal .sec1 .big-quote { color: var(--sec-line); }
+.reveal .indent { margin-left: 2.1em; font-size: 1em; }
+
+// --- Divider built in Quarto (illustration + number circle + title) ---------
+.reveal section.divider {
+  img.div-art {
+    position: absolute; left: 20px; top: 22px;
+    width: 1240px; height: 500px;
+    max-width: none; max-height: none; margin: 0;
+  }
+  .div-num {
+    position: absolute; left: 70px; top: 46px;
+    font-size: 2.4em;
+    margin: 0;
+  }
+  p:has(> .div-num) { margin: 0; }
+}
+
+// --- Step 1 slide -------------------------------------------------------------
+.reveal .slides section .columns.step1 { position: relative; top: 70px; font-size: 1.15em; }
+.reveal .step1 svg.dag-ays { margin-top: 10px; }
+.reveal .step1-lead { font-size: 1.4em; position: relative; top: 40px;
+  p { margin: 0 0 0.45em 0; }
+}
+.reveal img.arr-inline { display: inline-block; width: 2.4em; height: auto; vertical-align: middle; margin: 0 0.25em; max-width: none; max-height: none; }
+.reveal .slides section .columns.step1 p { margin: 0 0 0.6em 0; }
+.reveal svg.dag-ays { display: block; margin: 40px 0 0 0; width: 100%; height: auto; }
+.reveal .collider { display: block; text-align: right; margin-right: 1.2em; font-style: italic; font-weight: 500; }
+.reveal .example-hint {
+  position: absolute; right: 70px; top: 640px;
+  font-size: 0.85em;
+}
+
+// --- Research question collage (positions from the PowerPoint) ---------------
+.reveal section.collage {
+  .bg-label { position: absolute; left: 51px; top: 200px; font-size: 1.05em; }
+  img.c1, img.c2, img.c3, img.c4 {
+    position: absolute; object-fit: cover; margin: 0;
+    max-width: none; max-height: none;
+  }
+  img.c1 { left: 77px;  top: 262px; width: 520px; height: 412px; z-index: 1; }
+  img.c2 { left: 562px; top: 360px; width: 192px; height: 196px; z-index: 2; }
+  img.c3 { left: 768px; top: 202px; width: 458px; height: 346px; z-index: 1; }
+  img.c4 { left: 690px; top: 510px; width: 346px; height: 172px; z-index: 3; }
+}
+
+// --- Scatter slides -----------------------------------------------------------
+.reveal section.scatter {
+  img.plot {
+    position: absolute; left: 205px; top: 92px;
+    width: 860px; height: auto; max-width: none; max-height: none; margin: 0;
+  }
+  .how-much {
+    position: absolute; left: 1080px; top: 300px;
+    font-family: "Bradley Hand", "Segoe Print", cursive;
+    font-style: italic; font-size: 30px; line-height: 1.05;
+    color: var(--sec-line);
+  }
+  .obs-labels {
+    position: absolute; right: 1000px; top: 195px;
+    text-align: right; font-size: 26px;
+    p { margin: 0; line-height: 2.0; }
+  }
+}
+
+// --- "So how do I know …? YOU DON'T." ----------------------------------------
+.reveal section.dont-know {
+  h2 { max-width: 1100px; }
+  .you-dont { color: var(--sec-line); white-space: nowrap; }
+  // left block: the arrows start at the end of the "Little's MCAR test" line
+  .test-col { position: absolute; left: 56px; top: 228px; width: 560px; font-size: 1.05em;
+    ul { margin: 0.2em 0 0.4em 1.1em; }
+    li { margin-bottom: 0.2em; }
+    .cite { font-size: 0.7em; }
+  }
+  // R code window: filename bar labelled "R", bigger code
+  .code-with-filename { margin-top: 0.6em; width: 440px; }
+  .code-with-filename-file {
+    background: $mv-ink; color: #FFFFFF; border-radius: 10px 10px 0 0;
+    padding: 4px 14px;
+    pre { background: transparent; border: 0; margin: 0; padding: 0; }
+    strong, code, pre { color: #FFFFFF !important; font-family: Consolas, "SF Mono", Menlo, monospace; font-weight: 700; font-size: 20px !important; }
+  }
+  .code-with-filename pre { margin-top: 0; border-radius: 0 0 10px 10px; }
+  .code-with-filename pre code { font-size: 24px; line-height: 1.4; padding: 14px 16px; }
+  img.arr-up, img.arr-down {
+    position: absolute; left: 495px; width: 130px; height: 65px;
+    max-width: none; max-height: none; margin: 0;
+  }
+  img.arr-up   { top: 312px; }
+  img.arr-down { top: 378px; }
+  .res-sig, .res-ns { position: absolute; left: 645px; width: 580px; font-size: 0.95em;
+    p { margin: 0.1em 0; }
+  }
+  .res-sig { top: 250px; }
+  .res-ns  { top: 415px; }
+  .res-head { font-size: 1.3em; font-weight: 700; color: var(--sec-line); }
+}
+
+// Talk map: the italic keyword in each heading takes its section's outline colour
+.reveal .map .map-head em { color: var(--sec-line); }
+
+// Brain-data scatter: tag for the shaded motion corner, citation at the bottom
+.reveal section.scatter .qc-tag {
+  position: absolute; left: 1030px; top: 470px;
+  font-size: 22px; line-height: 1.2; font-weight: 700; color: #C0393B;
+}
+.reveal section.scatter .scatter-cite {
+  position: absolute; left: 56px; top: 668px;
+  font-size: 16px; line-height: 1.3;
+}
+
+
+// Columns share the full slide width (no empty strip on the right)
+.reveal .columns { display: flex; justify-content: space-between; }
+
+// Mechanisms slide: the three columns sit lower and larger
+.reveal .slides section .columns.mech-row { position: relative; top: 85px; }
+.reveal .mech-row .mech {
+  .pill { font-size: 1.35em; }
+  p { font-size: 1.0em; }
+  .eg { font-size: 0.8em; }
+}
+
+// Citation line at the bottom centre of a slide: [@key]{.cite .bottom-cite}
+.reveal .bottom-cite {
+  position: absolute; left: 150px; right: 260px; top: 668px;   // clear of the corner photos
+  text-align: left; font-size: 16px;
+}
+// citations stay grey, links included (they still click through to the reference)
+.reveal .cite, .reveal .cite a, .reveal .cite .citation { color: #9B9B9B !important; }
+.reveal .cite a:hover { text-decoration: underline; }
+
+.reveal img.mech-icon { width: 78px; height: 78px; margin: 0 auto 6px auto; display: block; max-width: none; max-height: none; }
+
+// citation at the bottom, starting at the left margin (slides without a corner photo)
+.reveal .bottom-cite.left { left: 56px; }
+
+// "Other diagnostics": numbered items left, R / Python tabs right
+.reveal section.diag {
+  .columns { margin-top: 10px; gap: 60px; justify-content: flex-start; }
+  .column { flex: 0 0 auto; min-width: 0; }
+  .column:first-child { width: 440px !important; }
+  .column:last-child { width: 650px !important; }
+  ol { font-size: 0.85em; }
+  ol li { margin-bottom: 1.1em; }
+  .cite { font-size: 0.7em; }
+  .panel-tabset [role="tab"] { font-size: 0.7em; font-weight: 700; color: $mv-grey; }
+  .panel-tabset [role="tab"][aria-selected="true"] { color: $mv-ink; border-bottom: 3px solid var(--sec-line); }
+  pre code { font-size: 17px; line-height: 1.35; max-height: 470px; }
+}
+
+// Stacked, collapsible sections with an arrow (HTML <details>): .acc-slide
+.reveal section.acc-slide {
+  details.acc {
+    background: var(--sec-tint);
+    border-radius: 16px;
+    margin: 0.45em 0;
+    padding: 0.35em 0.9em;
+    font-size: 0.9em;
+    summary {
+      cursor: pointer;
+      list-style: none;
+      display: block;
+      color: $mv-ink !important; opacity: 1 !important;
+      strong { color: $mv-ink; }
+      p { margin: 0; display: inline; }
+      &::-webkit-details-marker { display: none; }
+      &::before {
+        content: "";
+        display: inline-block; vertical-align: 0.1em;
+        width: 0.55em; height: 0.55em;
+        border-right: 4px solid var(--sec-line);
+        border-bottom: 4px solid var(--sec-line);
+        transform: rotate(-45deg);
+        transition: transform 0.2s ease;
+        margin-right: 0.6em;
+      }
+    }
+    &[open] summary::before { transform: rotate(45deg); }
+    ul { margin: 0.4em 0 0.2em 1.6em; font-size: 0.9em; }
+  }
+  // in the normal flow, so it moves down when a section opens; the slide
+  // scrolls (.scrollable) if both are open and it no longer fits
+  .assume-box {
+    margin: 0.7em 0 3.2em 0;
+    background: rgba(#FB5760, 0.16);
+    border-left: 8px solid #C0393B;
+    border-radius: 16px; padding: 0.5em 1em;
+    font-size: 1.0em;
+    p { margin: 0.15em 0; }
+    strong { color: #C0393B; }
+  }
+}
+
+// .scrollable slides: content taller than 720 px scrolls inside the slide
+.reveal .slides > section.scrollable.present {
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  display: flex !important;           // lets the footer sit at the bottom...
+  flex-direction: column;
+}
+// on scrolling slides the footer label stays pinned in the band at the bottom
+.reveal .slides > section.scrollable p:has(> .foot) {
+  position: sticky; bottom: 0;        // ...and stay there while scrolling, as a strip
+  margin: auto -56px 0 -56px;         // the colour of the mint band, so content
+  flex: 0 0 auto;                     // scrolls underneath instead of over it
+  height: 52px; padding: 8px 0 0 18px; box-sizing: border-box;
+  background: #BFE7DC;
+  z-index: 5;
+  .foot { position: static; }
+}
+
+// Blue summary box (comparisons), the counterpart of the red .assume-box
+.reveal section.acc-slide .compare-box {
+  margin: 0.7em 0 3.2em 0;
+  background: rgba($mv-purple, 0.14);
+  border-left: 8px solid $mv-ink;
+  border-radius: 16px; padding: 0.5em 1em;
+  font-size: 0.9em;
+  p { margin: 0.2em 0; }
+  strong { color: $mv-ink; }
+}
+
+// "1. Create plausible complete data sets" (rebuilt from the PowerPoint slide)
+.reveal section.mi-create {
+  .mint-dark { color: #2F8E73; }
+  .mc-jm, .mc-fcs, .mc-or, .mc-eg1, .mc-eg2, .mc-pill { position: absolute; margin: 0; }
+  img.mc-arr1, img.mc-arr2 { position: absolute; width: 132px; height: auto; margin: 0; max-width: none; max-height: none; }
+  .mc-jm, .mc-fcs { left: 165px; font-size: 44px; line-height: 1.15; font-weight: 400; color: $mv-purple; }
+  .mc-jm  { top: 172px; }
+  .mc-fcs { top: 380px; }
+  .mc-or  { left: 262px; top: 280px; font-size: 38px; color: #777777; font-weight: 400; }
+  img.mc-arr1 { left: 484px; top: 196px; }
+  img.mc-arr2 { left: 498px; top: 410px; }
+  .mc-eg1, .mc-eg2 { font-size: 30px; color: #3B3B8F; font-weight: 400; }
+  .mc-eg1 { left: 640px; top: 186px; }
+  .mc-eg2 { left: 643px; top: 405px; }
+  .mc-pill {
+    color: #FFFFFF; border-radius: 999px; text-align: center;
+    font-size: 25px; line-height: 1.15; padding: 13px 34px; white-space: nowrap; font-weight: 400;
+  }
+  .mc-blimp { left: 720px; top: 174px; background: #8F8DC4; padding: 6px 34px; }
+  .mc-jomo  { left: 720px; top: 250px; background: #8F8DC4; }
+  .mc-reg   { left: 720px; top: 388px; background: #E86266; }
+  .mc-pmm   { left: 713px; top: 465px; background: #F5D27A; }
+  .mc-cart  { left: 717px; top: 540px; background: #2F6553; }
+}
+
+// "Procedure" (MI algorithm as nested boxes, rebuilt from the PowerPoint slide)
+.reveal section.mi-proc {
+  .pr-step, .pr-box, .pr-pill { position: absolute; margin: 0; }
+  .pr-step { font-size: 28px; line-height: 1.2; font-weight: 400; color: $mv-purple; display: flex; }
+  .pr-n { flex: 0 0 52px; color: #222222; }
+  .pr-s1 { left: 172px; top: 92px; }
+  .pr-box { border-width: 3px; border-style: solid; border-radius: 6px; }
+  .pr-yellow { left: 152px; top: 145px; width: 1018px; height: 483px; background: #FDF6E3; border-color: #F2B937; }
+  .pr-lav    { left: 183px; top: 166px; width: 954px;  height: 392px; background: #DCDCEE; border-color: $mv-ink; }
+  .pr-green  { left: 214px; top: 187px; width: 893px;  height: 271px; background: #DFF2EC; border-color: #2F8E73; }
+  .pr-s0 { left: 246px; top: 200px; }
+  .pr-s2 { left: 246px; top: 238px; width: 820px; }
+  .pr-s3 { left: 246px; top: 310px; }
+  .pr-pill {
+    top: 356px; width: 366px; height: 86px; border-radius: 999px;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    color: #FFFFFF; font-size: 26px; line-height: 1.2; font-weight: 400;
+  }
+  .pr-red { left: 289px; background: #E86266; }
+  .pr-yel { left: 670px; background: #F5D27A; }
+  .pr-s4 { left: 230px; top: 470px; width: 890px; }
+  .pr-s5 { left: 228px; top: 578px; }
+}
+
+// Meme with its two labels laid over it (theory / code)
+.reveal .meme {
+  position: relative; margin-top: 20px;
+  img { display: block; width: 100%; height: auto; max-width: none; max-height: none; margin: 0; border-radius: 6px; }
+  p { margin: 0; }
+  .meme-label {
+    position: absolute; background: #FFFFFF; color: #000000;
+    font-size: 17px; font-weight: 400; padding: 2px 8px; white-space: nowrap;
+    strong { color: #000000; }
+  }
+  .meme-theory { left: 41%; top: 6%; }
+  .meme-code   { left: 3%;  top: 33%; }
+}
+
+// MI code slide without a title: bigger meme and code
+.reveal section.diag.code-meme {
+  .columns { margin-top: 0; gap: 40px; }
+  .column:first-child { width: 490px !important; }
+  .column:last-child  { width: 680px !important; }
+  .meme { margin-top: 10px; }
+  .meme .meme-label { font-size: 21px; }
+  .panel-tabset [role="tab"] { font-size: 0.85em; }
+  pre code { font-size: 19.5px; line-height: 1.45; max-height: 560px; }
+}
+
+// "Assessing convergence": intro, then Trace plots / PSR tabs
+.reveal section.mi-conv {
+  h2 .aka {
+    font-family: "Bradley Hand", "Segoe Print", cursive; font-weight: 700;
+    color: #E86266; font-size: 0.55em; margin-left: 0.8em; letter-spacing: 0.02em;
+  }
+  > p { margin: 0.1em 0 0.3em 0; font-size: 0.9em; }
+  .panel-tabset [role="tab"] { font-size: 0.72em; font-weight: 700; color: $mv-grey; }
+  .panel-tabset [role="tab"][aria-selected="true"] { color: $mv-ink; border-bottom: 3px solid var(--sec-line); }
+  .columns { gap: 30px; justify-content: flex-start; margin-top: 8px; }
+  pre { width: auto; display: inline-block; margin: 0 0 6px 0; }
+  pre code { font-size: 20px; padding: 4px 14px; }
+  img.conv-plot { width: 100%; height: auto; max-width: none; max-height: none; margin: 0; }
+  .conv-text { font-size: 0.72em; line-height: 1.3; p { margin: 0 0 0.6em 0; } }
+  .conv-more { display: block; margin-top: 0.6em; font-size: 0.62em; text-align: right; a { white-space: nowrap; } }
+  .psr { font-size: 0.8em; margin-top: 10px; p { margin: 0.3em 0 0.6em 0; } .hl { font-size: 1.1em; } }
+}
+
+// "3. Pool estimates: Rubin's rules" (rebuilt from the PowerPoint slide)
+.reveal section.mi-rubin {
+  .columns { margin-top: 20px; gap: 40px; justify-content: flex-start; }
+  .column { font-size: 0.85em; font-weight: 400; }
+  p { margin: 0.25em 0 0.45em 0; }
+  .c-pe { color: #F07F5A; }
+  .c-se { color: #F2B937; }
+  .c-vw { color: #4FA8E0; }
+  .c-vb { color: #7DB83A; }
+  mjx-container { color: $mv-ink; }
+  .bottom-cite.left { top: 630px; }
+}
+
+// Fraction of missing information: R code + output (rebuilt from the PowerPoint slide)
+.reveal section.mi-fmi {
+  .columns { margin-top: 0; gap: 30px; justify-content: flex-start; }
+  .column:first-child { width: 880px !important; flex: 0 0 auto; }
+  .column:last-child { width: 270px !important; flex: 0 0 auto; }
+  pre { margin: 0 0 10px 0; width: 100%; }
+  pre code { font-size: 15.5px; line-height: 1.38; padding: 8px 12px; }
+  pre.r-out { border: 1px solid #DDDDDD; background: #FFFFFF; border-radius: 10px; }
+  pre.r-out code { background: #FFFFFF; color: #222222; white-space: pre; }
+  mark.fmi-hl { background: #F6C9E8; color: #222222; padding: 0 2px; }
+  .fmi-side { margin-top: 210px; p { margin: 0 0 0.5em 0; } }
+  .fmi-or { display: block; font-size: 0.8em; padding-left: 5em; code { background: none; font-size: 1em; } }
+  .fmi-title { display: block; font-size: 1.15em; font-weight: 700; line-height: 1.15; }
+  .fmi-side strong { font-weight: 500; font-size: 0.8em; display: block; }
+  .fmi-arrow { position: absolute; left: 850px; top: 500px; width: 130px; height: 70px; pointer-events: none; }
+}
+
+// FIML: observed vs model-implied correlation matrix (rebuilt from the PowerPoint slide)
+.reveal section.mi-fiml {
+  .fiml-lab { position: absolute; top: 22px; font-size: 24px; color: #3E9C7E; font-weight: 500; }
+  .fl-obs { left: 140px; }
+  .fl-imp { left: 480px; }
+  .fl-a1, .fl-a2 { position: absolute; top: 88px; font-size: 26px; font-weight: 700; }
+  .fl-a1 { left: 180px; color: #E0474C; }
+  .fl-a2 { left: 390px; color: $mv-ink; }
+  img.fiml-3d { position: absolute; left: 120px; top: 66px; width: 340px; height: auto; max-width: none; max-height: none; margin: 0; }
+  .fiml-table { position: absolute; left: 484px; top: 66px; }
+  table.impl {
+    border-collapse: collapse; font-size: 9.5px; font-family: "STIX Two Text", "Times New Roman", serif; color: $mv-ink;
+    th { font-family: $font-family-sans-serif; font-size: 17px; font-weight: 700; color: $mv-ink; background: #FDF0CF; padding: 4px 6px !important; border: 0 !important; text-align: center; }
+    tbody th, td[data-quarto-table-cell-role="th"] { font-family: $font-family-sans-serif; font-size: 17px !important; font-weight: 700; background: #FDF0CF; border: 0 !important; text-align: center; }
+    td { border: 1.5px solid #F5C14E !important; width: 45px; height: 37px; padding: 2px 3px !important; vertical-align: middle; line-height: 1.15; white-space: nowrap; }
+    sub, sup { font-size: 0.75em; }
+  }
+  svg.path-diag { position: absolute; left: 872px; top: 70px; width: 370px; height: auto; font-family: $font-family-sans-serif; }
+  .fiml-bullets { position: absolute; left: 110px; right: 80px; top: 395px; font-size: 0.95em;
+    ul { list-style: disc; } li { margin-bottom: 0.7em; }
+  }
+}
+
+// IPW note + discussion point (rebuilt from the PowerPoint slide)
+.reveal section.ipw-note {
+  ul { list-style: disc; margin: 50px 60px 0 110px; font-size: 1.05em; }
+  li { margin-bottom: 0.9em; line-height: 1.3; }
+  li::marker { color: $mv-ink; }
+  .cite { font-size: 0.8em; }
+  .discussion {
+    width: 720px; margin: 30px auto 0 auto; padding: 0.6em 1em;
+    background: #F9E3DE; border-radius: 999px; text-align: center; font-size: 1.05em;
+    p { margin: 0; }
+  }
+}
+
+// Prevention (section 3)
+.reveal section.prevention {
+  > p { font-size: 0.85em; margin: 0 0 0.4em 0; }
+  .columns { gap: 36px; justify-content: flex-start; }
+  .column:first-child { width: 680px !important; flex: 0 0 auto; }
+  .column:last-child { width: 450px !important; flex: 0 0 auto; }
+  ul { font-size: 0.72em; }
+  li { margin-bottom: 0.3em; line-height: 1.25; }
+  .box { font-size: 0.8em; margin-top: 0.4em; ul { font-size: 1em; } }
+}
+
+// Planned missingness (section 3): headings in the section colour
+.reveal section.planned h3 { color: var(--sec-line); }
+
+// Divider with a photo instead of a drawing (divider 4: the "we need to talk" cat)
+.reveal section.divider img.div-photo {
+  position: absolute; left: 50%; top: 40px; transform: translateX(-50%);
+  height: 470px; width: auto; max-width: none; max-height: none; margin: 0;
+  border-radius: 18px; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+.reveal section.divider.sec4 .dtitle { font-size: 1.9em; }   // longer title
+
+// Section 4 (FAQs): yellow frame, highlights in orange (yellow text is unreadable on white)
+.reveal .sec4 { --sec-text: #E0891B; }
+.reveal .sec4 .hl, .reveal .sec4 h3 { color: #E0891B; }
+.reveal .sec4 .big-quote { color: #E0891B; }
+.reveal .sec4 ol li::marker { color: #F5A623; }
+.reveal section.three-points ol { font-size: 1.15em; margin: 60px 80px 0 60px; li { margin-bottom: 1em; } }
+.reveal section.report-it .column:last-child ul { font-size: 0.78em; }
+.reveal section.report-it .column:first-child ol { font-size: 0.9em; }

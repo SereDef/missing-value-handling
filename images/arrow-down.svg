@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="230" viewBox="0 0 40 230">
+  <!-- hand-drawn style arrow, red from the PowerPoint figure -->
+  <g fill="none" stroke="#C0393B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 4 C 17 45, 24 85, 19 125 S 23 190, 20 222"/>
+    <path d="M7 204 C 12 210, 16 216, 20 224 C 24 215, 28 209, 34 201"/>
+  </g>
+</svg>

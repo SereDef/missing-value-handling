@@ -1,0 +1,14 @@
+# Quarto build output
+/_site/
+/.quarto/
+/_freeze/
+index_files/
+
+# R
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+# macOS
+.DS_Store

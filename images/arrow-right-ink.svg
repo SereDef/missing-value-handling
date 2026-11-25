@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 40" width="140" height="40">
+  <!-- hand-drawn style arrow, indigo, as on the PowerPoint "Create plausible complete data sets" slide -->
+  <g fill="none" stroke="#3B3B8F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 21 C 40 18, 90 22, 132 20"/>
+    <path d="M100 5 C 110 10, 122 15, 133 20 C 122 25, 112 31, 104 37"/>
+  </g>
+</svg>
